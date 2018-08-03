@@ -41,14 +41,18 @@ public:
 			/* MODE rw */
 			static const uint8_t dflt = 0b001; // 3'b1
 			static const uint8_t mask = 0b11100000; // [5,6,7]
-			static const uint8_t SLEEP = 0b00; // sleep mode - Sleep
-			static const uint8_t STBY = 0b01; // stand-by mode - Stby (d)
-			static const uint8_t FS = 0b10; // frequency synthesizer mode - FS
-			static const uint8_t RX = 0b11; // receive mode - Rx
-			static const uint8_t TX = 0b100; // transmit mode - Tx
+			static const uint8_t SLEEP = 0b00; // sleep mode
+			static const uint8_t STBY = 0b01; // stand-by mode(d)
+			static const uint8_t FS = 0b10; // frequency synthesizer mode
+			static const uint8_t RX = 0b11; // receive mode
+			static const uint8_t TX = 0b100; // transmit mode
 		};
 		/* Bits Freq_band: */
-		/* Frequency band:  */
+		/*
+		 * 3.2.5.1. Frequency band.
+		 * To guarantee the optimum operation of the VCO over the SX1212’s frequency and
+		 * temperature ranges, the following settings should be programmed
+		 */
 		struct Freq_band
 		{
 			/* MODE rw */
@@ -130,7 +134,7 @@ public:
 			static const uint8_t reserved_0 = 0b11; // 
 		};
 		/* Bits IF_gain: */
-		/* Gain on the IF chain:  */
+		/* 3.4.2. Gain on the IF chain:  */
 		struct IF_gain
 		{
 			/* MODE rw */
@@ -152,21 +156,21 @@ public:
 	{
 		return read8(MCParam_2::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_3                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_3:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                       REG MCParam_freq_dev                                        *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_freq_dev:
 	 */
-	struct MCParam_3
+	struct MCParam_freq_dev
 	{
 		static const uint16_t __address = 2;
 		/* Bits Freq_dev: */
 		/*
 		 * 3.3.4-5: Single side frequency deviation in FSK Transmit mode:
 		 * Fdev = f_XTAL / (32 (D+1))          , 0 ≤ D ≤ 255, where D is the value in the register.
-		 * (d): D = “00000011” => Fdev = 100 kHz
+		 * (d): D = “00000011" => Fdev = 100 kHz
 		 */
 		struct Freq_dev
 		{
@@ -175,31 +179,31 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_3 */
-	void setMCParam_3(uint8_t value)
+	/* Set register MCParam_freq_dev */
+	void setMCParam_freq_dev(uint8_t value)
 	{
-		write(MCParam_3::__address, value, 8);
+		write(MCParam_freq_dev::__address, value, 8);
 	}
-	/* Get register MCParam_3 */
-	uint8_t getMCParam_3()
+	/* Get register MCParam_freq_dev */
+	uint8_t getMCParam_freq_dev()
 	{
-		return read8(MCParam_3::__address, 8);
+		return read8(MCParam_freq_dev::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_4                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_4:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                         REG MCParam_BR_C                                          *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_BR_C:
 	 */
-	struct MCParam_4
+	struct MCParam_BR_C
 	{
 		static const uint16_t __address = 3;
 		/* Bits BR_C: */
 		/*
 		 * C coefficient of the bit rate
 		 * Bit Rate = f_XTAL / ( 2 ⋅ (C + 1).(D + 1) )  , 0 ≤ C ≤ 255, where C is the value in the register.
-		 * (d): C =  “0000111”  => Bit Rate = 25 kb/s NRZ
+		 * (d): C =  “0000111"  => Bit Rate = 25 kb/s NRZ
 		 */
 		struct BR_C
 		{
@@ -208,31 +212,31 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_4 */
-	void setMCParam_4(uint8_t value)
+	/* Set register MCParam_BR_C */
+	void setMCParam_BR_C(uint8_t value)
 	{
-		write(MCParam_4::__address, value, 8);
+		write(MCParam_BR_C::__address, value, 8);
 	}
-	/* Get register MCParam_4 */
-	uint8_t getMCParam_4()
+	/* Get register MCParam_BR_C */
+	uint8_t getMCParam_BR_C()
 	{
-		return read8(MCParam_4::__address, 8);
+		return read8(MCParam_BR_C::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_5                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_5:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                         REG MCParam_BR_D                                          *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_BR_D:
 	 */
-	struct MCParam_5
+	struct MCParam_BR_D
 	{
 		static const uint16_t __address = 4;
 		/* Bits BR_D: */
 		/*
 		 * D coefficient of the bit rate
 		 * Bit Rate =f_XTAL / ( 2 ⋅ (C + 1).(D + 1) ) , 15 ≤ D ≤ 255, where D is the value in the register.
-		 * (d): D =  “0001111”  => Bit Rate = 25 kb/s NRZ
+		 * (d): D =  “0001111"  => Bit Rate = 25 kb/s NRZ
 		 */
 		struct BR_D
 		{
@@ -241,15 +245,15 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_5 */
-	void setMCParam_5(uint8_t value)
+	/* Set register MCParam_BR_D */
+	void setMCParam_BR_D(uint8_t value)
 	{
-		write(MCParam_5::__address, value, 8);
+		write(MCParam_BR_D::__address, value, 8);
 	}
-	/* Get register MCParam_5 */
-	uint8_t getMCParam_5()
+	/* Get register MCParam_BR_D */
+	uint8_t getMCParam_BR_D()
 	{
-		return read8(MCParam_5::__address, 8);
+		return read8(MCParam_BR_D::__address, 8);
 	}
 	/****************************************************************************************************\
 	 *                                                                                                  *
@@ -263,7 +267,7 @@ public:
 		static const uint16_t __address = 5;
 		/* Bits PA_ramp: */
 		/*
-		 * Ramp control of the rise and fall times of the Tx PA regulator output voltage in
+		 * 3.3.7.1. Ramp control of the rise and fall times of the Tx PA regulator output voltage in
 		 * OOK mode:
 		 */
 		struct PA_ramp
@@ -321,19 +325,19 @@ public:
 	{
 		return read8(MCParam_6::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_7                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_7:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                          REG MCParam_R1                                           *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_R1:
 	 */
-	struct MCParam_7
+	struct MCParam_R1
 	{
 		static const uint16_t __address = 6;
 		/* Bits R1: */
 		/*
-		 * R counter, active when RPS_select=”0”
+		 * 3.2.8. R counter, active when RPS_select="0"
 		 * (d):6Bh; default values of R1, P1, S1 generate 434.0 MHz in FSK mode
 		 */
 		struct R1
@@ -343,29 +347,29 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_7 */
-	void setMCParam_7(uint8_t value)
+	/* Set register MCParam_R1 */
+	void setMCParam_R1(uint8_t value)
 	{
-		write(MCParam_7::__address, value, 8);
+		write(MCParam_R1::__address, value, 8);
 	}
-	/* Get register MCParam_7 */
-	uint8_t getMCParam_7()
+	/* Get register MCParam_R1 */
+	uint8_t getMCParam_R1()
 	{
-		return read8(MCParam_7::__address, 8);
+		return read8(MCParam_R1::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_8                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_8:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                          REG MCParam_P1                                           *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_P1:
 	 */
-	struct MCParam_8
+	struct MCParam_P1
 	{
 		static const uint16_t __address = 7;
 		/* Bits P1: */
 		/*
-		 * P counter, active when RPS_select=”0”
+		 * 3.2.8. P counter, active when RPS_select="0"
 		 * (d): 2Ah; default values of R1, P1, S1 generate 434.0 MHz in FSK mode
 		 */
 		struct P1
@@ -375,29 +379,29 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_8 */
-	void setMCParam_8(uint8_t value)
+	/* Set register MCParam_P1 */
+	void setMCParam_P1(uint8_t value)
 	{
-		write(MCParam_8::__address, value, 8);
+		write(MCParam_P1::__address, value, 8);
 	}
-	/* Get register MCParam_8 */
-	uint8_t getMCParam_8()
+	/* Get register MCParam_P1 */
+	uint8_t getMCParam_P1()
 	{
-		return read8(MCParam_8::__address, 8);
+		return read8(MCParam_P1::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG MCParam_9                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG MCParam_9:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                          REG MCParam_S1                                           *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG MCParam_S1:
 	 */
-	struct MCParam_9
+	struct MCParam_S1
 	{
 		static const uint16_t __address = 8;
 		/* Bits S1: */
 		/*
-		 * S counter, active when RPS_select=”0”
+		 * 3.2.8. S counter, active when RPS_select="0"
 		 * (d): 1Eh; default values of R1, P1, S1 generate 434.0 MHz in FSK mode
 		 */
 		struct S1
@@ -407,29 +411,29 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_9 */
-	void setMCParam_9(uint8_t value)
+	/* Set register MCParam_S1 */
+	void setMCParam_S1(uint8_t value)
 	{
-		write(MCParam_9::__address, value, 8);
+		write(MCParam_S1::__address, value, 8);
 	}
-	/* Get register MCParam_9 */
-	uint8_t getMCParam_9()
+	/* Get register MCParam_S1 */
+	uint8_t getMCParam_S1()
 	{
-		return read8(MCParam_9::__address, 8);
+		return read8(MCParam_S1::__address, 8);
 	}
 	/*****************************************************************************************************\
 	 *                                                                                                   *
-	 *                                          REG MCParam_10                                           *
+	 *                                          REG MCParam_R2                                           *
 	 *                                                                                                   *
 	\*****************************************************************************************************/
-	/* REG MCParam_10:
+	/* REG MCParam_R2:
 	 */
-	struct MCParam_10
+	struct MCParam_R2
 	{
 		static const uint16_t __address = 9;
 		/* Bits R2: */
 		/*
-		 * R counter, active when RPS_select=”1”
+		 * 3.2.8. R counter, active when RPS_select="1"
 		 * (d): 77h; default values of R2, P2, S2 generate 435.0 MHz in FSK mode
 		 */
 		struct R2
@@ -439,29 +443,29 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_10 */
-	void setMCParam_10(uint8_t value)
+	/* Set register MCParam_R2 */
+	void setMCParam_R2(uint8_t value)
 	{
-		write(MCParam_10::__address, value, 8);
+		write(MCParam_R2::__address, value, 8);
 	}
-	/* Get register MCParam_10 */
-	uint8_t getMCParam_10()
+	/* Get register MCParam_R2 */
+	uint8_t getMCParam_R2()
 	{
-		return read8(MCParam_10::__address, 8);
+		return read8(MCParam_R2::__address, 8);
 	}
 	/*****************************************************************************************************\
 	 *                                                                                                   *
-	 *                                          REG MCParam_11                                           *
+	 *                                          REG MCParam_P2                                           *
 	 *                                                                                                   *
 	\*****************************************************************************************************/
-	/* REG MCParam_11:
+	/* REG MCParam_P2:
 	 */
-	struct MCParam_11
+	struct MCParam_P2
 	{
 		static const uint16_t __address = 10;
 		/* Bits P2: */
 		/*
-		 * P counter, active when RPS_select=”1”
+		 * 3.2.8. P counter, active when RPS_select="1"
 		 * (d): 2Fh; default values of R2, P2, S2 generate 435.0 MHz in FSK mode
 		 */
 		struct P2
@@ -471,29 +475,29 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_11 */
-	void setMCParam_11(uint8_t value)
+	/* Set register MCParam_P2 */
+	void setMCParam_P2(uint8_t value)
 	{
-		write(MCParam_11::__address, value, 8);
+		write(MCParam_P2::__address, value, 8);
 	}
-	/* Get register MCParam_11 */
-	uint8_t getMCParam_11()
+	/* Get register MCParam_P2 */
+	uint8_t getMCParam_P2()
 	{
-		return read8(MCParam_11::__address, 8);
+		return read8(MCParam_P2::__address, 8);
 	}
 	/*****************************************************************************************************\
 	 *                                                                                                   *
-	 *                                          REG MCParam_12                                           *
+	 *                                          REG MCParam_S2                                           *
 	 *                                                                                                   *
 	\*****************************************************************************************************/
-	/* REG MCParam_12:
+	/* REG MCParam_S2:
 	 */
-	struct MCParam_12
+	struct MCParam_S2
 	{
 		static const uint16_t __address = 11;
 		/* Bits S2: */
 		/*
-		 * S counter, active when RPS_select=”1”
+		 * 3.2.8. S counter, active when RPS_select="1"
 		 * (d): 19h; default values of R2, P2, S2 generate 435.0 MHz in FSK mode
 		 */
 		struct S2
@@ -503,24 +507,24 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register MCParam_12 */
-	void setMCParam_12(uint8_t value)
+	/* Set register MCParam_S2 */
+	void setMCParam_S2(uint8_t value)
 	{
-		write(MCParam_12::__address, value, 8);
+		write(MCParam_S2::__address, value, 8);
 	}
-	/* Get register MCParam_12 */
-	uint8_t getMCParam_12()
+	/* Get register MCParam_S2 */
+	uint8_t getMCParam_S2()
 	{
-		return read8(MCParam_12::__address, 8);
+		return read8(MCParam_S2::__address, 8);
 	}
 	/*****************************************************************************************************\
 	 *                                                                                                   *
-	 *                                          REG MCParam_13                                           *
+	 *                                       REG MCParam_reserved                                        *
 	 *                                                                                                   *
 	\*****************************************************************************************************/
-	/* REG MCParam_13:
+	/* REG MCParam_reserved:
 	 */
-	struct MCParam_13
+	struct MCParam_reserved
 	{
 		static const uint16_t __address = 12;
 		/* Bits reserved_0: */
@@ -531,15 +535,15 @@ public:
 			static const uint8_t mask = 0b00000111; // [0,1,2]
 		};
 	};
-	/* Set register MCParam_13 */
-	void setMCParam_13(uint8_t value)
+	/* Set register MCParam_reserved */
+	void setMCParam_reserved(uint8_t value)
 	{
-		write(MCParam_13::__address, value, 8);
+		write(MCParam_reserved::__address, value, 8);
 	}
-	/* Get register MCParam_13 */
-	uint8_t getMCParam_13()
+	/* Get register MCParam_reserved */
+	uint8_t getMCParam_reserved()
 	{
-		return read8(MCParam_13::__address, 8);
+		return read8(MCParam_reserved::__address, 8);
 	}
 	/*****************************************************************************************************\
 	 *                                                                                                   *
@@ -673,10 +677,9 @@ public:
 		struct Tx_irq_1
 		{
 			/* MODE rw */
-			static const uint8_t dflt = 0b0; // 1'b0
 			static const uint8_t mask = 0b00000100; // [2]
-			static const uint8_t FIFO_FULL = 0b0; // Fifofull (d)
-			static const uint8_t TX_DONE = 0b1; // Tx_done
+			static const uint8_t FIFO_FULL = 0b0; // Fifofull (Buffered mode or Packet mode) / DCLK (Continuous mode) (d)
+			static const uint8_t TX_DONE = 0b1; // Tx_done (Buffered mode or Packet mode) / DCLK (Continuous mode)
 		};
 		/* Bits Fifofull: */
 		/*
@@ -767,8 +770,8 @@ public:
 		};
 		/* Bits Res: */
 		/*
-		 * (d): “0”, should be set to “1”.
-		 * Note: “0” disables the RSSI IRQ source. It can be left enabled at any time,
+		 * (d): “0", should be set to “1".
+		 * Note: “0" disables the RSSI IRQ source. It can be left enabled at any time,
 		 * and the user can choose to map this interrupt to IRQ0/IRQ1 or not.
 		 */
 		struct Res
@@ -789,8 +792,9 @@ public:
 		};
 		/* Bits PLL_locked: */
 		/*
-		 * PLL status:
-		 * Writing a ‘1’ clears the bit
+		 * 3.2.7. PLL status:
+		 * The lock status can be read on bit IRQParam_PLL_lock, and must be cleared
+		 * by writing a "1" to this same register.
 		 */
 		struct PLL_locked
 		{
@@ -800,7 +804,7 @@ public:
 			static const uint8_t LOCKED = 0b1; // locked
 		};
 		/* Bits PLL_lock_en: */
-		/* PLL_lock detect flag mapped to pin 23:  */
+		/* 3.2.7. PLL_lock detect flag mapped to pin 23:  */
 		struct PLL_lock_en
 		{
 			/* MODE rw */
@@ -857,7 +861,7 @@ public:
 	{
 		static const uint16_t __address = 16;
 		/* Bits PassiveFilt: */
-		/* Typical single sideband bandwidth of the passive low-pass filter. PassiveFilt  = 0000  65 kHz  */
+		/* 3.4.4.1. Typical single sideband bandwidth of the passive low-pass filter. PassiveFilt  = 0000  65 kHz  */
 		struct PassiveFilt
 		{
 			/* MODE rw */
@@ -881,9 +885,9 @@ public:
 		};
 		/* Bits ButterFilt: */
 		/*
-		 * Sets the receiver bandwidth. For BW information please refer to sections 3.4.5 (FSK) and 3.4.6 (OOK).
+		 * 3.4.4.2. Sets the receiver bandwidth. For BW information please refer to sections 3.4.5 (FSK) and 3.4.6 (OOK).
 		 * f_c  = f_0 + 200kHz * (f_xtal MHz/12.8MHz) * ((1 + Val(ButterFilt))/8)
-		 * (d): “0011” => fC = 200 kHz
+		 * (d): “0011" => fC = 200 kHz
 		 */
 		struct ButterFilt
 		{
@@ -902,21 +906,21 @@ public:
 	{
 		return read8(RXParam_1::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG RXParam_2                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG RXParam_2:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                   REG RXParam_PolypFilt_center                                    *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG RXParam_PolypFilt_center:
 	 */
-	struct RXParam_2
+	struct RXParam_PolypFilt_center
 	{
 		static const uint16_t __address = 17;
 		/* Bits PolypFilt_center: */
 		/*
-		 * Central frequency of the polyphase filter (100kHz recommended):
+		 * 3.4.4.2. Central frequency of the polyphase filter (100kHz recommended):
 		 * f  = 200kHz * (F_xtal MHz/12.8MHz) * ((1 + Val (PolypFilt _ center))/8)
-		 * (d):“0011” => f0 = 100 kHz
+		 * (d):“0011" => f0 = 100 kHz
 		 */
 		struct PolypFilt_center
 		{
@@ -932,15 +936,15 @@ public:
 			static const uint8_t mask = 0b00001111; // [0,1,2,3]
 		};
 	};
-	/* Set register RXParam_2 */
-	void setRXParam_2(uint8_t value)
+	/* Set register RXParam_PolypFilt_center */
+	void setRXParam_PolypFilt_center(uint8_t value)
 	{
-		write(RXParam_2::__address, value, 8);
+		write(RXParam_PolypFilt_center::__address, value, 8);
 	}
-	/* Get register RXParam_2 */
-	uint8_t getRXParam_2()
+	/* Get register RXParam_PolypFilt_center */
+	uint8_t getRXParam_PolypFilt_center()
 	{
-		return read8(RXParam_2::__address, 8);
+		return read8(RXParam_PolypFilt_center::__address, 8);
 	}
 	/****************************************************************************************************\
 	 *                                                                                                  *
@@ -963,7 +967,7 @@ public:
 			static const uint8_t OFF = 0b1; // on
 		};
 		/* Bits Bitsync_off: */
-		/* Bit synchronizer: control in Continuous Rx mode:  */
+		/* 5.2.3. Bit synchronizer: control in Continuous Rx mode:  */
 		struct Bitsync_off
 		{
 			/* MODE rw */
@@ -973,7 +977,7 @@ public:
 			static const uint8_t OFF = 0b1; // off §
 		};
 		/* Bits Sync_on: */
-		/* Sync word recognition:  */
+		/* 5.2.3. Sync word recognition:  */
 		struct Sync_on
 		{
 			/* MODE rw */
@@ -983,7 +987,7 @@ public:
 			static const uint8_t ON = 0b1; // on
 		};
 		/* Bits Sync_size: */
-		/* Sync word size:  */
+		/* 5.2.3. Sync word size:  */
 		struct Sync_size
 		{
 			/* MODE rw */
@@ -995,7 +999,7 @@ public:
 			static const uint8_t SIZE_32_BITS = 0b11; // 32 bits (d)
 		};
 		/* Bits Sync_tol: */
-		/* Number of errors tolerated in the Sync word recognition:  */
+		/* 5.2.3. Number of errors tolerated in the Sync word recognition:  */
 		struct Sync_tol
 		{
 			/* MODE rw */
@@ -1024,20 +1028,20 @@ public:
 	{
 		return read8(RXParam_3::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG RXParam_4                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
-	/* REG RXParam_4:
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                      REG RXParam_OOK_Thresh                                       *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
+	/* REG RXParam_OOK_Thresh:
 	 */
-	struct RXParam_4
+	struct RXParam_OOK_Thresh
 	{
 		static const uint16_t __address = 19;
 		/* Bits OOK_Thresh: */
 		/*
 		 * OOK fixed threshold or min threshold in peak mode. By default at 6dB.
-		 * (d): “00000100” assuming 0.5dB RSSI step.
+		 * (d): “00000100" assuming 0.5dB RSSI step.
 		 */
 		struct OOK_Thresh
 		{
@@ -1046,27 +1050,27 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register RXParam_4 */
-	void setRXParam_4(uint8_t value)
+	/* Set register RXParam_OOK_Thresh */
+	void setRXParam_OOK_Thresh(uint8_t value)
 	{
-		write(RXParam_4::__address, value, 8);
+		write(RXParam_OOK_Thresh::__address, value, 8);
 	}
-	/* Get register RXParam_4 */
-	uint8_t getRXParam_4()
+	/* Get register RXParam_OOK_Thresh */
+	uint8_t getRXParam_OOK_Thresh()
 	{
-		return read8(RXParam_4::__address, 8);
+		return read8(RXParam_OOK_Thresh::__address, 8);
 	}
-	/****************************************************************************************************\
-	 *                                                                                                  *
-	 *                                          REG RXParam_5                                           *
-	 *                                                                                                  *
-	\****************************************************************************************************/
+	/*****************************************************************************************************\
+	 *                                                                                                   *
+	 *                                         REG RXParam_RSSI                                          *
+	 *                                                                                                   *
+	\*****************************************************************************************************/
 	/*
-	 * REG RXParam_5:
-	 * RSSI output, 0.5 dB / bit
+	 * REG RXParam_RSSI:
+	 * 3.4.7. RSSI output, 0.5 dB / bit
 	 * Note: READ-ONLY (not to be written)
 	 */
-	struct RXParam_5
+	struct RXParam_RSSI
 	{
 		static const uint16_t __address = 20;
 		/* Bits RSSI_val: */
@@ -1076,15 +1080,15 @@ public:
 			static const uint8_t mask = 0b11111111; // [0,1,2,3,4,5,6,7]
 		};
 	};
-	/* Set register RXParam_5 */
-	void setRXParam_5(uint8_t value)
+	/* Set register RXParam_RSSI */
+	void setRXParam_RSSI(uint8_t value)
 	{
-		write(RXParam_5::__address, value, 8);
+		write(RXParam_RSSI::__address, value, 8);
 	}
-	/* Get register RXParam_5 */
-	uint8_t getRXParam_5()
+	/* Get register RXParam_RSSI */
+	uint8_t getRXParam_RSSI()
 	{
-		return read8(RXParam_5::__address, 8);
+		return read8(RXParam_RSSI::__address, 8);
 	}
 	/****************************************************************************************************\
 	 *                                                                                                  *
@@ -1167,7 +1171,7 @@ public:
 		/* Bits Sync_value: */
 		/*
 		 * 1st Byte of Sync word
-		 * (d): “00000000”
+		 * (d): “00000000"
 		 */
 		struct Sync_value
 		{
@@ -1198,9 +1202,9 @@ public:
 		static const uint16_t __address = 26;
 		/* Bits InterpFilt: */
 		/*
-		 * Tx Interpolation filter cut off frequency:
+		 * 3.3.6. Tx Interpolation filter cut off frequency:
 		 * f_c = 200kHz * (F_xtal MHz/12.8MHz) * ((1 + Val(InterpFiltTx))/8)
-		 * (d): “0111” => fC = 200 kHz
+		 * (d): “0111" => fC = 200 kHz
 		 */
 		struct InterpFilt
 		{
@@ -1268,7 +1272,7 @@ public:
 		/* Bits Clkout_freq: */
 		/*
 		 * Frequency of the signal provided on CLKOUT:
-		 * fclkout = f_xtal                     if Clkout_freq = “00000”
+		 * fclkout = f_xtal                     if Clkout_freq = “00000"
 		 * fclkout = f_xtal / (2 ⋅ Clkout_freq) otherwise
 		 * (d): 01111 (= 427 kHz)
 		 */
@@ -1307,7 +1311,7 @@ public:
 	{
 		static const uint16_t __address = 28;
 		/* Bits Manchester_on: */
-		/* Enable Manchester encoding/decoding:  */
+		/* 5.5.6.1. Enable Manchester encoding/decoding:  */
 		struct Manchester_on
 		{
 			/* MODE rw */
@@ -1319,7 +1323,7 @@ public:
 		/* Bits Payload_length: */
 		/*
 		 * If Pkt_format=0, payload length.
-		 * If Pkt_format=1, max length in Rx, not used in Tx. (d): “0000000”
+		 * If Pkt_format=1, max length in Rx, not used in Tx. (d): “0000000"
 		 */
 		struct Payload_length
 		{
@@ -1400,7 +1404,7 @@ public:
 			static const uint8_t SIZE_4_BYTES = 0b11; // 4 bytes
 		};
 		/* Bits Whitening_on: */
-		/* Whitening/dewhitening process:  */
+		/* 5.5.6.2. Whitening/dewhitening process:  */
 		struct Whitening_on
 		{
 			/* MODE rw */
